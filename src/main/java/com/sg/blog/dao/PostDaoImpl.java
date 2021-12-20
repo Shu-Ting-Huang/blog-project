@@ -54,6 +54,7 @@ public class PostDaoImpl implements PostDao {
                     tempPost.setId(rs.getInt("postId"));
                     tempPost.setTitle(rs.getString("title"));
                     tempPost.setContent(rs.getString("content"));
+                    result.add(tempPost);
                 }
             }
             return result;
