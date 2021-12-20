@@ -37,7 +37,24 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public Post getPostById(int id) {
-        // TODO Auto-generated method stub
+        try {
+            DataSource ds = getDataSource();
+            try ( Connection conn = ds.getConnection()) {
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM posts");
+                while (rs.next()) {
+                    if (rs.getInt("postId") == id) {
+                        Post result = new Post();
+                        result.setId(id);
+                        result.setTitle(rs.getString("title"));
+                        result.setContent(rs.getString("content"));
+                        return result;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
