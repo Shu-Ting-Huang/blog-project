@@ -55,6 +55,28 @@ public class TagDaoImpl implements TagDao {
     }
 
     @Override
+    public Tag getTagByName(String name) {
+        try {
+            DataSource ds = getDataSource();
+            try ( Connection conn = ds.getConnection()) {
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM tags");
+                while (rs.next()) {
+                    if (rs.getString("tagName").equals(name)) {
+                        Tag result = new Tag();
+                        result.setId(rs.getInt("tagId"));
+                        result.setName(name);
+                        return result;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public List<Tag> getAllTags() {
         try {
             List<Tag> result = new ArrayList<>();
