@@ -115,8 +115,17 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public void deletePostById(int id) {
-        // TODO Auto-generated method stub
-        
+        try {
+            DataSource ds = getDataSource();
+            try (Connection conn = ds.getConnection()) {
+                PreparedStatement pStmt = conn.prepareCall("DELETE FROM posts WHERE postId = " + id);
+                pStmt.executeUpdate();
+                pStmt = conn.prepareCall("DELETE FROM post_tags WHERE postId = " + id);
+                pStmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
 }

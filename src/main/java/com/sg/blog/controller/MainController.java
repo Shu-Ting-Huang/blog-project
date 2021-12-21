@@ -51,6 +51,20 @@ public class MainController {
         return "admin";
     }
 
+    @GetMapping("admin/delete")
+    public String delete(Model model) {
+        List<Post> postList = postDao.getAllPosts();
+        Collections.reverse(postList);
+        model.addAttribute("posts", postList);
+        return "delete";
+    }
+
+    @PostMapping("admin/delete")
+    public String deletePost(@RequestParam("id") String id) {
+        postDao.deletePostById(Integer.parseInt(id));
+        return "redirect:/home";
+    }
+
     @PostMapping("admin/newpost")
     public String newPost(@RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("tags") String tagsString) {
         List<String> tags= new ArrayList<String>(Arrays.asList(tagsString.split(";")));
