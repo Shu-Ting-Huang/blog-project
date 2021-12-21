@@ -1,6 +1,7 @@
 package com.sg.blog.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -30,9 +31,18 @@ public class PostDaoImpl implements PostDao {
 
 
     @Override
-    public void addPost(Post post) {
-        // TODO Auto-generated method stub
-        
+    public void addPost(String title, String content) {
+        try {
+            DataSource ds = getDataSource();
+            try (Connection conn = ds.getConnection()) {
+                PreparedStatement pStmt = conn.prepareCall("INSERT INTO posts (title, content) VALUES(?,?)");
+                pStmt.setString(1, title);
+                pStmt.setString(2, content);
+                pStmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
