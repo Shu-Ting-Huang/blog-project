@@ -51,12 +51,12 @@ public class MainController {
         return "admin";
     }
 
-    @GetMapping("admin/delete")
-    public String delete(Model model) {
+    @GetMapping("admin/edit")
+    public String editDelete(Model model) {
         List<Post> postList = postDao.getAllPosts();
         Collections.reverse(postList);
         model.addAttribute("posts", postList);
-        return "delete";
+        return "editDelete";
     }
 
     @PostMapping("admin/delete")
