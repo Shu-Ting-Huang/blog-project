@@ -1,5 +1,10 @@
 package com.sg.blog.dto;
 
+import java.util.List;
+
+import com.sg.blog.dao.PostTagDao;
+import com.sg.blog.dao.PostTagDaoImpl;
+
 public class Post {
     private int id;
     private String title;
@@ -27,5 +32,10 @@ public class Post {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public List<Tag> getTags() {
+        PostTagDao postTagDao = new PostTagDaoImpl();
+        return postTagDao.getTagsByPost(this);
     }
 }

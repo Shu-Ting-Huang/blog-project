@@ -40,7 +40,7 @@ public class PostTagDaoImpl implements PostTagDao{
             DataSource ds = getDataSource();
             try (Connection conn = ds.getConnection()) {
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM posts");
+                ResultSet rs = stmt.executeQuery("SELECT * FROM post_tags");
                 while (rs.next()) {
                     if (rs.getInt("tagId") == tag.getId()) {
                         result.add(postDao.getPostById(rs.getInt("postId")));
@@ -62,7 +62,7 @@ public class PostTagDaoImpl implements PostTagDao{
             DataSource ds = getDataSource();
             try (Connection conn = ds.getConnection()) {
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM tags");
+                ResultSet rs = stmt.executeQuery("SELECT * FROM post_tags");
                 while (rs.next()) {
                     if (rs.getInt("postId") == post.getId()) {
                         result.add(tagDao.getTagById(rs.getInt("tagId")));
