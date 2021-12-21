@@ -48,8 +48,13 @@ public class MainController {
     }
 
     @GetMapping("admin")
-    public String editDelete(Model model) {
-        List<Post> postList = postDao.getAllPosts();
+    public String editDelete(Model model, @RequestParam(name = "tag", required = false) String tagId) {
+        List<Post> postList;
+        if (tagId == null) {
+            postList = postDao.getAllPosts();
+        } else {
+            postList = postTagDao.getPostsByTag(tagDao.getTagById(Integer.parseInt(tagId)));
+        }
         Collections.reverse(postList);
         model.addAttribute("posts", postList);
         return "admin";
