@@ -1,6 +1,7 @@
 package com.sg.blog.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -30,6 +31,22 @@ public class TagDaoImpl implements TagDao {
     public void addTag(Tag tag) {
         // TODO Auto-generated method stub
         
+    }
+
+    @Override
+    public void addTagByName(String name) {
+        if (getTagByName(name) == null) {
+            try {
+            DataSource ds = getDataSource();
+            try (Connection conn = ds.getConnection()) {
+                PreparedStatement pStmt = conn.prepareCall("INSERT INTO tags (tagName) VALUES(?)");
+                pStmt.setString(1, name);
+                pStmt.executeUpdate();
+            }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

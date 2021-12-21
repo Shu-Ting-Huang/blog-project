@@ -1,6 +1,7 @@
 package com.sg.blog.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,8 +29,17 @@ public class PostTagDaoImpl implements PostTagDao{
 
     @Override
     public void addPostTag(Post post, Tag tag) {
-        // TODO Auto-generated method stub
-        
+        try {
+            DataSource ds = getDataSource();
+            try (Connection conn = ds.getConnection()) {
+                PreparedStatement pStmt = conn.prepareCall("INSERT INTO post_tags (postId, tagId) VALUES(?,?)");
+                pStmt.setInt(1, post.getId());
+                pStmt.setInt(2, tag.getId());
+                pStmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

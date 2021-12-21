@@ -6,6 +6,7 @@ import com.sg.blog.dto.Tag;
 
 public interface TagDao {
     void addTag(Tag tag);
+    void addTagByName(String name);
     Tag getTagById(int id);
     Tag getTagByName(String Name);
     List<Tag> getAllTags();

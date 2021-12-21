@@ -31,7 +31,7 @@ public class PostDaoImpl implements PostDao {
 
 
     @Override
-    public void addPost(String title, String content) {
+    public void addPost(String title, String content, List<String> tagNames) {
         try {
             DataSource ds = getDataSource();
             try (Connection conn = ds.getConnection()) {
@@ -39,6 +39,22 @@ public class PostDaoImpl implements PostDao {
                 pStmt.setString(1, title);
                 pStmt.setString(2, content);
                 pStmt.executeUpdate();
+            }
+            try (Connection conn = ds.getConnection()) {
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM posts");
+                int postId = -1000;
+                while (rs.next()) {
+                    postId = rs.getInt("postId");
+                }
+                TagDao tagDao = new TagDaoImpl();
+                PostTagDao postTagDao = new PostTagDaoImpl();
+                for (String tagName: tagNames) {
+                    if (tagDao.getTagByName(tagName) == null) {
+                        tagDao.addTagByName(tagName);
+                    }
+                    postTagDao.addPostTag(getPostById(postId), tagDao.getTagByName(tagName));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
