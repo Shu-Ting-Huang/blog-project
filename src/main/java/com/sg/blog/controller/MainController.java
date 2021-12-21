@@ -12,6 +12,7 @@ import com.sg.blog.dao.PostTagDaoImpl;
 import com.sg.blog.dao.TagDao;
 import com.sg.blog.dao.TagDaoImpl;
 import com.sg.blog.dto.Post;
+import com.sg.blog.dto.Tag;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -87,12 +88,23 @@ public class MainController {
 
     @PostMapping("admin/update")
     public String updatePost(@RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("tags") String tagsString, @RequestParam("id") String id) {
-        // List<String> tags= new ArrayList<String>(Arrays.asList(tagsString.split(";")));
         Post updatedPost = new Post();
         updatedPost.setId(Integer.parseInt(id));
         updatedPost.setTitle(title);
         updatedPost.setContent(content);
         postDao.editPostById(Integer.parseInt(id), updatedPost);
+
+        // update tags information
+            // remove old tags
+        for (Tag tag: updatedPost.getTags()) {
+            postTagDao.removePostTag(updatedPost, tag);
+        }
+            // add new tags
+        List<String> tags= new ArrayList<String>(Arrays.asList(tagsString.split(";")));
+        for (String tagName: tags) {
+            tagDao.addTagByName(tagName); // create new tag if needed
+            postTagDao.addPostTag(updatedPost, tagDao.getTagByName(tagName));
+        }
         return "redirect:/home";
     }
 

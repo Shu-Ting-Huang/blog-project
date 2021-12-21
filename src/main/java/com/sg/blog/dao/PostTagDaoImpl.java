@@ -88,7 +88,15 @@ public class PostTagDaoImpl implements PostTagDao{
 
     @Override
     public void removePostTag(Post post, Tag tag) {
-        // TODO Auto-generated method stub
+        try {
+            DataSource ds = getDataSource();
+            try (Connection conn = ds.getConnection()) {
+                PreparedStatement pStmt = conn.prepareCall("DELETE FROM post_tags WHERE postId = " + post.getId() + " AND tagId = " + tag.getId());
+                pStmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         
     }
     
