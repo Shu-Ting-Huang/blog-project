@@ -48,9 +48,21 @@ public class MainController {
     }
 
     @GetMapping("admin")
-    public String editDelete(Model model, @RequestParam(name="id", required=false) String id) {
-        if (id != null) {
-            Post post = postDao.getPostById(Integer.parseInt(id));
+    public String editDelete(Model model) {
+        List<Post> postList = postDao.getAllPosts();
+        Collections.reverse(postList);
+        model.addAttribute("posts", postList);
+        return "admin";
+    }
+
+    @GetMapping("admin/newpost")
+    public String admin() {
+        return "newpost";
+    }
+
+    @GetMapping("admin/edit")
+    public String editPost(Model model, @RequestParam(name="id", required=false) String id) {
+        Post post = postDao.getPostById(Integer.parseInt(id));
             model.addAttribute("post", post);
             String tagsString = "";
             for (int i=0; i<post.getTags().size(); i++) {
@@ -61,16 +73,6 @@ public class MainController {
             }
             model.addAttribute("tagsString", tagsString);
             return "edit";
-        }
-        List<Post> postList = postDao.getAllPosts();
-        Collections.reverse(postList);
-        model.addAttribute("posts", postList);
-        return "editDelete";
-    }
-
-    @GetMapping("admin/newpost")
-    public String admin() {
-        return "newpost";
     }
 
     @PostMapping("admin/delete")
