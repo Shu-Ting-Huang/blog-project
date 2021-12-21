@@ -1,0 +1,22 @@
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Fantastic Blog</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <a href="/admin"><h1>Fantastic Blog Admin Page</h1></a>
+        <h2>New post here</h2>
+        <form action="/admin/newpost" method="post">
+            <label for="title">Title:</label>
+            <input type="text" name="title" id="title" required="required" placeholder="Enter your title here"/>
+            <br/>
+            <label for="content">Content:</label>
+            <br/>
+            <textarea name="content" id="content" required="required" placeholder="Enter your content here"></textarea>
+            <br/>
+            <input type="submit" value="Post"/>
+        </form>
+    </body>
+</html>

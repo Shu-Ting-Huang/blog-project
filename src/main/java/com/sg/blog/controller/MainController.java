@@ -42,4 +42,10 @@ public class MainController {
         model.addAttribute("post", postDao.getPostById(Integer.parseInt(postId)));
         return "post";
     }
+
+    @GetMapping("admin")
+    public String admin() {
+        return "admin";
+    }
+
 }
