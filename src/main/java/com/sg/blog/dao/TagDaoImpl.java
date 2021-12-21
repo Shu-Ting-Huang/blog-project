@@ -40,7 +40,7 @@ public class TagDaoImpl implements TagDao {
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT * FROM tags");
                 while (rs.next()) {
-                    if (rs.getInt("postId") == id) {
+                    if (rs.getInt("tagId") == id) {
                         Tag result = new Tag();
                         result.setId(id);
                         result.setName(rs.getString("tagName"));
