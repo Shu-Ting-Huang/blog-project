@@ -28,6 +28,11 @@ public class MainController {
     PostTagDao postTagDao = new PostTagDaoImpl();
     TagDao tagDao = new TagDaoImpl();
     
+    @GetMapping("/")
+    public String rootPage() {
+        return "redirect:/home";
+    }
+
     @GetMapping("home")
     public String home(Model model, @RequestParam(name = "tag", required = false) String tagId) {
         List<Post> postList;
