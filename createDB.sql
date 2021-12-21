@@ -26,6 +26,8 @@ INSERT INTO tags(tagName) VALUES('First Tag');
 INSERT INTO tags(tagName) VALUES('Second Tag');
 
 INSERT INTO post_tags(postId, tagId) VALUES(1, 1);
+INSERT INTO post_tags(postId, tagId) VALUES(1, 2);
 INSERT INTO post_tags(postId, tagId) VALUES(2, 1);
+INSERT INTO post_tags(postId, tagId) VALUES(2, 2);
 INSERT INTO post_tags(postId, tagId) VALUES(3, 2);
 INSERT INTO post_tags(postId, tagId) VALUES(4, 2);
