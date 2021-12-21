@@ -9,7 +9,7 @@
         <a href="/admin"><h1>Fantastic Blog Admin Page</h1></a>
         <h2>Edit post here</h2>
         <form action="/admin/update" method="post">
-            <input type="hidden" name="id" value="${post.getId()}"/>
+            <input type="hidden" name="id" th:value="${post.getId()}"/>
             <label for="title">Title:</label>
             <br/>
             <input th:value="${post.getTitle()}" size="50" type="text" name="title" id="title" required="required" placeholder="Enter your title here"/>

@@ -109,7 +109,17 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public void editPostById(int id, Post post) {
-        // TODO Auto-generated method stub
+        try {
+            DataSource ds = getDataSource();
+            try (Connection conn = ds.getConnection()) {
+                PreparedStatement pStmt = conn.prepareCall("UPDATE posts SET title = ?,content = ? WHERE postId = " + id);
+                pStmt.setString(1, post.getTitle());
+                pStmt.setString(2, post.getContent());
+                pStmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         
     }
 

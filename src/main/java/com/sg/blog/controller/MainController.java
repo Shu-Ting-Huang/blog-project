@@ -88,7 +88,11 @@ public class MainController {
     @PostMapping("admin/update")
     public String updatePost(@RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("tags") String tagsString, @RequestParam("id") String id) {
         // List<String> tags= new ArrayList<String>(Arrays.asList(tagsString.split(";")));
-        // postDao.editPostById(id, post);
+        Post updatedPost = new Post();
+        updatedPost.setId(Integer.parseInt(id));
+        updatedPost.setTitle(title);
+        updatedPost.setContent(content);
+        postDao.editPostById(Integer.parseInt(id), updatedPost);
         return "redirect:/home";
     }
 
