@@ -13,7 +13,7 @@
             <h2 th:text="${post.getTitle()}"></h2>
             <p th:text="${post.getContent()}"></p>
             <span th:each="tag:${post.getTags()}">
-                <a th:href="'home?tag=' + ${tag.getId()}" th:text="${tag.getName()}"></a>
+                <a th:href="'/tag/' + ${tag.getId()}" th:text="${tag.getName()}"></a>
             </span>
             <hr>
         </div>
