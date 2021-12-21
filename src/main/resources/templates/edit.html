@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Fantastic Blog</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <a href="/admin"><h1>Fantastic Blog Admin Page</h1></a>
+        <h2>Edit post here</h2>
+        <form action="/admin/update" method="post">
+            <input type="hidden" name="id" value="${post.getId()}"/>
+            <label for="title">Title:</label>
+            <br/>
+            <input th:value="${post.getTitle()}" size="50" type="text" name="title" id="title" required="required" placeholder="Enter your title here"/>
+            <br/><br/>
+            <label for="content">Content:</label>
+            <br/>
+            <textarea th:text="${post.getContent()}" cols="50" rows="10" name="content" id="content" required="required" placeholder="Enter your content here"></textarea>
+            <br/><br/>
+            <label for="tags">Tags:</label>
+            <br/>
+            <input th:value="${tagsString}" size="50" type="text" name="tags" id="tags" placeholder="Enter your tags here, separated by semicolon">
+            <br/>
+            <input type="submit" value="Update"/>
+        </form>
+    </body>
+</html>

@@ -52,7 +52,20 @@ public class MainController {
     }
 
     @GetMapping("admin/edit")
-    public String editDelete(Model model) {
+    public String editDelete(Model model, @RequestParam(name="id", required=false) String id) {
+        if (id != null) {
+            Post post = postDao.getPostById(Integer.parseInt(id));
+            model.addAttribute("post", post);
+            String tagsString = "";
+            for (int i=0; i<post.getTags().size(); i++) {
+                tagsString += post.getTags().get(i).getName();
+                if ( i != post.getTags().size()-1) {
+                    tagsString += ";";
+                }
+            }
+            model.addAttribute("tagsString", tagsString);
+            return "edit";
+        }
         List<Post> postList = postDao.getAllPosts();
         Collections.reverse(postList);
         model.addAttribute("posts", postList);
