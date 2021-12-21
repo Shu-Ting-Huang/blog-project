@@ -48,11 +48,6 @@ public class MainController {
     }
 
     @GetMapping("admin")
-    public String admin() {
-        return "admin";
-    }
-
-    @GetMapping("admin/edit")
     public String editDelete(Model model, @RequestParam(name="id", required=false) String id) {
         if (id != null) {
             Post post = postDao.getPostById(Integer.parseInt(id));
@@ -71,6 +66,11 @@ public class MainController {
         Collections.reverse(postList);
         model.addAttribute("posts", postList);
         return "editDelete";
+    }
+
+    @GetMapping("admin/newpost")
+    public String admin() {
+        return "newpost";
     }
 
     @PostMapping("admin/delete")
