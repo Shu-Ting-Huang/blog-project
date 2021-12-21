@@ -78,14 +78,14 @@ public class MainController {
     @PostMapping("admin/delete")
     public String deletePost(@RequestParam("id") String id) {
         postDao.deletePostById(Integer.parseInt(id));
-        return "redirect:/home";
+        return "redirect:/admin";
     }
 
     @PostMapping("admin/newpost")
     public String newPost(@RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("tags") String tagsString) {
         List<String> tags= new ArrayList<String>(Arrays.asList(tagsString.split(";")));
         postDao.addPost(title, content, tags);
-        return "redirect:/home";
+        return "redirect:/admin";
     }
 
     @PostMapping("admin/update")
@@ -107,7 +107,7 @@ public class MainController {
             tagDao.addTagByName(tagName); // create new tag if needed
             postTagDao.addPostTag(updatedPost, tagDao.getTagByName(tagName));
         }
-        return "redirect:/home";
+        return "redirect:/admin";
     }
 
 }
