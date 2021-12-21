@@ -1,6 +1,7 @@
 package com.sg.blog.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -51,8 +52,8 @@ public class MainController {
     }
 
     @PostMapping("admin/newpost")
-    public String newPost(@RequestParam("title") String title, @RequestParam("content") String content) {
-        List<String> tags= new ArrayList<>();
+    public String newPost(@RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("tags") String tagsString) {
+        List<String> tags= new ArrayList<String>(Arrays.asList(tagsString.split(";")));
         postDao.addPost(title, content, tags);
         return "redirect:/home";
     }
