@@ -1,12 +1,12 @@
 <html xmlns:th="http://www.thymeleaf.org"
     xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>Fantastic Blog</title>
+        <title>Blog Project</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <a href="/admin"><h1>Fantastic Blog Admin Page</h1></a>
+        <a href="/admin"><h1>Blog Project Admin Page</h1></a>
         <a href="/admin/newpost"><h2>Create new post</h2></a>
         <hr>
         <div th:each="post:${posts}">
